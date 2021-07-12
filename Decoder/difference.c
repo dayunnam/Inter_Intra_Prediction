@@ -1,7 +1,7 @@
 #include "inter_intra_header.h"
 
 
-//MSE & PSNR **ÀÔ·ÂÀº uchar Çü**
+//MSE & PSNR **ì…ë ¥ì€ uchar í˜•**
 double MSE_f(unsigned char* sp_img, char* s)
 {
 	double MSE;
@@ -16,7 +16,7 @@ double MSE_f(unsigned char* sp_img, char* s)
 	fopen_s(&in2, s, "rb");
 	
 	fseek(in2, 0, SEEK_SET);
-	//printf("sfv");//test ¿ë=========
+	//printf("sfv");//test ìš©=========
 	fread((void*)org_img2, sizebyte, org_row*org_col, in2);
 	
 	for (i = 0; i < org_col; i++)
@@ -37,14 +37,14 @@ double MSE_f(unsigned char* sp_img, char* s)
 	return MSE;
 }
 
-//mismatch È®ÀÎ
+//mismatch í™•ì¸
 int ismismatch(unsigned char* en_img, unsigned char* de_img) {
 	int i, j;
 	for (i = 0; i < org_col; i++)
 	{
 		for (j = 0; j< org_row; j++) {
 			if (*(en_img + i*org_row + j) != *(de_img + i*org_row + j)) {
-				printf("\n%d ¿­ %d Çà : mismatch %d \n", i, j, *(en_img + i*org_row + j) - *(de_img + i*org_row + j));//test ¿ë===========
+				printf("\n%d ì—´ %d í–‰ : mismatch %d \n", i, j, *(en_img + i*org_row + j) - *(de_img + i*org_row + j));//test ìš©===========
 				return TRUE;
 			}
 		}
@@ -68,9 +68,9 @@ int* sampling_error(int* error, int type, int size_row, int size_col, int DCT_N)
 	//error_double = DCT_I(error, size_row, size_col);
 	//error = IDCT_I(error_double, size_row, size_col);
 
-	//type ÀÌ 0ÀÌ¸é error ¸¦ ¾çÀÚÈ­¸¸ ÇÔ
+	//type ì´ 0ì´ë©´ error ë¥¼ ì–‘ìí™”ë§Œ í•¨
 	if (type == 0) {
-		error_dct = DCT_I(error, size_row, size_col, DCT_N);//double Çü
+		error_dct = DCT_I(error, size_row, size_col, DCT_N);//double í˜•
 		for (n = 0; n < size_row*size_col; n++) {
 			if ((*(error_dct + n)) > 0)
 				*(error_d + n) = (int)((*(error_dct + n)) / sample + 0.5);
@@ -81,7 +81,7 @@ int* sampling_error(int* error, int type, int size_row, int size_col, int DCT_N)
 
 	}
 
-	//type = 1 ¾çÀÚÈ­µÈ ¿¡·¯¸¦ ´Ù½Ã º¹±¸ÇÔ 
+	//type = 1 ì–‘ìí™”ëœ ì—ëŸ¬ë¥¼ ë‹¤ì‹œ ë³µêµ¬í•¨ 
 	else if (type == 1) {
 		for (n = 0; n < size_row*size_col; n++) {
 			*(error_double + n) = ((double)(*(error + n))*sample);

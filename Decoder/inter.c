@@ -1,8 +1,8 @@
 #include "inter_intra_header.h"
 
 
-//½Ã°£¿¹Ãø
-// motion vector Á¤º¸¸¦ ¹ŞÀ¸¸é, ¿¹Ãø ºí·Ï Ãâ·Â
+//ì‹œê°„ì˜ˆì¸¡
+// motion vector ì •ë³´ë¥¼ ë°›ìœ¼ë©´, ì˜ˆì¸¡ ë¸”ë¡ ì¶œë ¥
 unsigned char* pre_block_tempo(unsigned char* before_dec_img, int i, int j, int mv_x, int mv_y) {
 	unsigned char* block_pre = NULL;
 	int u, v;
@@ -29,11 +29,11 @@ unsigned char* decoding_tempo(unsigned char* before_dec_img, int* mv_x, int* mv_
 	reconstruct_img = (unsigned char*)malloc(sizeof(unsigned char)*(org_row * org_col));
 	block_pre = (unsigned char*)malloc(sizeof(unsigned char)*(N_tempo*N_tempo));
 
-	invQ_difference = sampling_error(Q_diff, 1, org_row, org_col,N_tempo); //¿ª¾çÀÚÈ­
+	invQ_difference = sampling_error(Q_diff, 1, org_row, org_col,N_tempo); //ì—­ì–‘ìí™”
 
 	for (i = 0; i < org_col; i += N_tempo) {
 		for (j = 0; j < org_row; j += N_tempo) {
-			//printf("i =  %d, j = %d\n",i, j);//test ¿ë===========
+			//printf("i =  %d, j = %d\n",i, j);//test ìš©===========
 			block_pre = pre_block_tempo(before_dec_img, i, j, *(mv_x + i / N_tempo*(org_row / N_tempo) + j / N_tempo), *(mv_y + i / N_tempo*(org_row / N_tempo) + j / N_tempo));
 			for (u = 0; u < N_tempo; u++) {
 				for (v = 0; v < N_tempo; v++) {

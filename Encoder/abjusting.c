@@ -1,6 +1,6 @@
 #include "inter_intra_header.h"
 
-//¿µ»óÀÇ ¹à±â¸¦ 0~ 255 ¹üÀ§¾È¿¡ ¿Àµµ·Ï clipping
+//ì˜ìƒì˜ ë°ê¸°ë¥¼ 0~ 255 ë²”ìœ„ì•ˆì— ì˜¤ë„ë¡ clipping
 unsigned char clipping(int temp) {
 	unsigned char img;
 	if (temp < 0)

@@ -1,10 +1,10 @@
 #include "inter_intra_header.h"
 
-//DCT : ¿øº» ¿µ»ó¿¡¼­ °¡·Î DCT ¸¦ ÇÑ °á°ú¸¦ double ÇüÀ¸·Î Ãâ·Â (8x8 ºí·ÏÀÇ forward DCT)
+//DCT : ì›ë³¸ ì˜ìƒì—ì„œ ê°€ë¡œ DCT ë¥¼ í•œ ê²°ê³¼ë¥¼ double í˜•ìœ¼ë¡œ ì¶œë ¥ (8x8 ë¸”ë¡ì˜ forward DCT)
 double* DCT_U(unsigned char* org_img, int size_row, int size_cul, int DCT_N) {
-	int i, j; //½ÅÈ£ °ø°£ ÁÂÇ¥°ª
-	int m, n; //block¾ÈÀÇ ÁÂÇ¥°ª;
-	int u, v; //°¡·Î, ¼¼·Î ÁÖÆÄ¼ö
+	int i, j; //ì‹ í˜¸ ê³µê°„ ì¢Œí‘œê°’
+	int m, n; //blockì•ˆì˜ ì¢Œí‘œê°’;
+	int u, v; //ê°€ë¡œ, ì„¸ë¡œ ì£¼íŒŒìˆ˜
 	double* DCT_img = NULL;
 
 	DCT_img = (double*)malloc(sizeof(double)*(size_row*size_cul));
@@ -35,9 +35,9 @@ double* DCT_U(unsigned char* org_img, int size_row, int size_cul, int DCT_N) {
 }
 
 double* DCT_I(int* org_img, int size_row, int size_cul, int DCT_N) {
-	int i, j; //½ÅÈ£ °ø°£ ÁÂÇ¥°ª
-	int m, n; //block¾ÈÀÇ ÁÂÇ¥°ª
-	int u, v; //°¡·Î, ¼¼·Î ÁÖÆÄ¼ö
+	int i, j; //ì‹ í˜¸ ê³µê°„ ì¢Œí‘œê°’
+	int m, n; //blockì•ˆì˜ ì¢Œí‘œê°’
+	int u, v; //ê°€ë¡œ, ì„¸ë¡œ ì£¼íŒŒìˆ˜
 	double* DCT_img = NULL;
 
 	DCT_img = (double*)malloc(sizeof(double)*(size_row*size_cul));
@@ -68,18 +68,18 @@ double* DCT_I(int* org_img, int size_row, int size_cul, int DCT_N) {
 }
 
 
-//IDCT : double ÇüÀÇ DCT ¿µ»óÀ» ´Ù½Ã ¿øº»¿µ»ó¿¡ °¡±õ°Ô unsinged charÇüÀ¸·Î º¹¿øÇÑ´Ù.
+//IDCT : double í˜•ì˜ DCT ì˜ìƒì„ ë‹¤ì‹œ ì›ë³¸ì˜ìƒì— ê°€ê¹ê²Œ unsinged charí˜•ìœ¼ë¡œ ë³µì›í•œë‹¤.
 unsigned char* IDCT_U(double* DCT_img, int size_row, int size_cul, int DCT_N) {
 	int i, j;
-	int m, n; //block¾ÈÀÇ ÁÂÇ¥°ª;
-	int u, v; //°¡·Î, ¼¼·Î ÁÖÆÄ¼ö
+	int m, n; //blockì•ˆì˜ ì¢Œí‘œê°’;
+	int u, v; //ê°€ë¡œ, ì„¸ë¡œ ì£¼íŒŒìˆ˜
 	double* IDCT_double = NULL;
 	unsigned char* IDCT_img = NULL;
 
 	IDCT_double = (double*)malloc(sizeof(double)*(size_row*size_cul));
 	IDCT_img = (unsigned char*)malloc(sizeof(unsigned char)*(size_row*size_cul));
 
-	//unsigned char ·Î Çüº¯È¯ ÇÏ±â Àü 0.5 ´õÇØÁÖ±â.
+	//unsigned char ë¡œ í˜•ë³€í™˜ í•˜ê¸° ì „ 0.5 ë”í•´ì£¼ê¸°.
 	for (i = 0; i < size_row; i = i + DCT_N) {
 		for (j = 0; j< size_cul; j = j + DCT_N) {
 			for (n = 0; n < DCT_N; n++) {
@@ -101,7 +101,7 @@ unsigned char* IDCT_U(double* DCT_img, int size_row, int size_cul, int DCT_N) {
 			}
 		}
 	}
-	//uchar ÇüÀ¸·Î Çüº¯È¯ÇØÁÖ±â
+	//uchar í˜•ìœ¼ë¡œ í˜•ë³€í™˜í•´ì£¼ê¸°
 
 	return IDCT_img;
 	free(IDCT_double);
@@ -110,8 +110,8 @@ unsigned char* IDCT_U(double* DCT_img, int size_row, int size_cul, int DCT_N) {
 
 int* IDCT_I(double* DCT_Quantization_img, int size_row, int size_cul, int DCT_N) {
 	int i, j;
-	int m, n; //block¾ÈÀÇ ÁÂÇ¥°ª;
-	int u, v; //°¡·Î, ¼¼·Î ÁÖÆÄ¼ö
+	int m, n; //blockì•ˆì˜ ì¢Œí‘œê°’;
+	int u, v; //ê°€ë¡œ, ì„¸ë¡œ ì£¼íŒŒìˆ˜
 	double* IDCT_double = NULL;
 	int* IDCT_img = NULL;
 

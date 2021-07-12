@@ -1,6 +1,6 @@
 #include "inter_intra_header.h"
 
-//ÆÄÀÏ ÀĞ±â
+//íŒŒì¼ ì½ê¸°
 unsigned char* readFile(char* s, int size_row, int size_col) {
 	//FILE* input_img = fopen(in_file, "rb");
 	unsigned char* org_img = NULL;
@@ -8,7 +8,7 @@ unsigned char* readFile(char* s, int size_row, int size_col) {
 	fopen_s(&input_img, s, "rb");
 	org_img = (unsigned char*)malloc(sizeof(unsigned char)*(size_row*size_col));
 	if (input_img == NULL) {
-		puts("input ÆÄÀÏ ¿ÀÇÂ ½ÇÆĞ ");
+		puts("input íŒŒì¼ ì˜¤í”ˆ ì‹¤íŒ¨ ");
 		return NULL;
 	}
 	else {
@@ -20,7 +20,7 @@ unsigned char* readFile(char* s, int size_row, int size_col) {
 	free(org_img);
 }
 
-//ÆÄÀÏ ÀĞ±â
+//íŒŒì¼ ì½ê¸°
 int* ReadFile_int(char* s, int size_row, int size_col) {
 	//FILE* input_img = fopen(in_file, "rb");
 	FILE* input;
@@ -29,7 +29,7 @@ int* ReadFile_int(char* s, int size_row, int size_col) {
 	fopen_s(&input, s, "rb");
 	org = (int*)malloc(sizeof(int)*(org_row*org_col));
 	if (input == NULL) {
-		puts("input ÆÄÀÏ ¿ÀÇÂ ½ÇÆĞ ");
+		puts("input íŒŒì¼ ì˜¤í”ˆ ì‹¤íŒ¨ ");
 		return NULL;
 	}
 	else {
@@ -41,13 +41,13 @@ int* ReadFile_int(char* s, int size_row, int size_col) {
 	free(org);
 }
 
-//unsigned char Çü ÆÄÀÏ ¾²±â
+//unsigned char í˜• íŒŒì¼ ì“°ê¸°
 unsigned char* WriteFile_U(unsigned char* out_img, char* s, int size_row, int size_col) {
 	//FILE* output_img = fopen(out_file, "wb");
 	FILE* output_img;
 	fopen_s(&output_img, s, "wb");
 	if (output_img == NULL) {
-		puts("output ÆÄÀÏ ¿ÀÇÂ ½ÇÆĞ");
+		puts("output íŒŒì¼ ì˜¤í”ˆ ì‹¤íŒ¨");
 		return NULL;
 	}
 	else {

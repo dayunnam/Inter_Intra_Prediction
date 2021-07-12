@@ -19,7 +19,7 @@ unsigned char* inter_intra_decoding(unsigned char* before_recon_img, unsigned ch
 	for (i = 0; i < org_col; i += N_tempo) {
 		for (j = 0; j < org_row; j += N_tempo) {
 			
-			//°ø°£¿¹Ãø¿¡¼­ º¹¿ø
+			//Â°Ã¸Â°Â£Â¿Â¹ÃƒÃ¸Â¿Â¡Â¼Â­ ÂºÂ¹Â¿Ã¸
 			if (*(flag_MB + (i / N_tempo)*(org_row / N_tempo) + j / N_tempo) == 0) {
 				n++;
 				for (a = 0; a < N_tempo; a += N_intra) {

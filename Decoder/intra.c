@@ -1,9 +1,9 @@
 #include "inter_intra_header.h"
 
-//°ø°£¿¹Ãø
+//ê³µê°„ì˜ˆì¸¡
 
-//ºí·ÏÀÇ ÀÌ¿ôÇÑ ÇÈ¼¿ Ãà·ÂÇÏ±â, type = 1 ÀÎ °æ¿ì´Â ½Ã°£ °ø°£ ¿¹ÃøÀÎ °æ¿ì, type = 0 Àº °ø°£¿¹Ãø¸¸ ÇÒ °æ¿ì
-unsigned char* neighbor_pixels(unsigned char* org_img, int current_row, int current_cul, int type) { // current_row = Çà, current_cul = ¿­
+//ë¸”ë¡ì˜ ì´ì›ƒí•œ í”½ì…€ ì¶•ë ¥í•˜ê¸°, type = 1 ì¸ ê²½ìš°ëŠ” ì‹œê°„ ê³µê°„ ì˜ˆì¸¡ì¸ ê²½ìš°, type = 0 ì€ ê³µê°„ì˜ˆì¸¡ë§Œ í•  ê²½ìš°
+unsigned char* neighbor_pixels(unsigned char* org_img, int current_row, int current_cul, int type) { // current_row = í–‰, current_cul = ì—´
 	int u, v;
 	int w;
 	unsigned char* neighbor_pix = NULL;
@@ -86,7 +86,7 @@ unsigned char* neighbor_pixels(unsigned char* org_img, int current_row, int curr
 	free(neighbor_pix);
 }
 
-//¿¹Ãø ºí·Ï Ãâ·Â 
+//ì˜ˆì¸¡ ë¸”ë¡ ì¶œë ¥ 
 unsigned char* pre_block_intra(unsigned char* neighbor_pix, int type, int current_cul, int current_row) {
 	unsigned char* block = NULL;
 
@@ -139,13 +139,13 @@ unsigned char* pre_block_intra(unsigned char* neighbor_pix, int type, int curren
 			m = (sum + 4) >> 3;
 
 		}
-		else if (current_cul - 1 < 0 && current_row - 1 >= 0) { // ¼¼·Î ¸·´ë = 128
+		else if (current_cul - 1 < 0 && current_row - 1 >= 0) { // ì„¸ë¡œ ë§‰ëŒ€ = 128
 			for (i = 0; i < N_intra; i++) {
 				sum += *(neighbor_pix + i);
 			}
 			m = (unsigned char)(sum / ((double)N_intra) + 0.5);
 		}
-		else if (current_cul - 1 >= 0 && current_row - 1 < 0) { // °¡·Î ¸·´ë = 128
+		else if (current_cul - 1 >= 0 && current_row - 1 < 0) { // ê°€ë¡œ ë§‰ëŒ€ = 128
 			for (i = 0; i < N_intra; i++) {
 				sum += *(neighbor_pix + N_intra + i);
 			}
@@ -314,7 +314,7 @@ unsigned char* pre_block_intra(unsigned char* neighbor_pix, int type, int curren
 }
 
 
-//test ¿ë====================
+//test ìš©====================
 void sort_Label(unsigned char* Label_arr) {
 
 	int* label_N = NULL;
@@ -342,7 +342,7 @@ void sort_Label(unsigned char* Label_arr) {
 	free(label_N);
 }
 
-//test ¿ë====================
+//test ìš©====================
 void sort_Error(int* Error) {
 
 	int* error_N = NULL;
@@ -371,9 +371,9 @@ void sort_Error(int* Error) {
 }
 
 
-//¾çÀÚÈ­µÈ error¿Í label À» ÀÌ¿ëÇÏ¿©, decoding ÇÏ±â
+//ì–‘ìží™”ëœ errorì™€ label ì„ ì´ìš©í•˜ì—¬, decoding í•˜ê¸°
 unsigned char* decoding_intra(unsigned char* Label_arr, int* Error) {
-	unsigned char* res_img = NULL; //º¹±¸ ¿µ»ó
+	unsigned char* res_img = NULL; //ë³µêµ¬ ì˜ìƒ
 	unsigned char* neighbor_pix = NULL;
 	unsigned char* block_pre = NULL;
 
@@ -386,10 +386,10 @@ unsigned char* decoding_intra(unsigned char* Label_arr, int* Error) {
 	neighbor_pix = (unsigned char*)malloc(sizeof(unsigned char)*(N_intra + pre_N)); //8 or 13
 	block_pre = (unsigned char*)malloc(sizeof(unsigned char)*(N_intra*N_intra));
 
-	//sort_Error(Error); //test ¿ë==========================
+	//sort_Error(Error); //test ìš©==========================
 
-	Error = sampling_error(Error, 1, org_row, org_col, N_intra); //¾çÀÚÈ­µÈ error º¹±¸
-														//sort_Error(Error); //test ¿ë==========================
+	Error = sampling_error(Error, 1, org_row, org_col, N_intra); //ì–‘ìží™”ëœ error ë³µêµ¬
+														//sort_Error(Error); //test ìš©==========================
 	for (i = 0; i < org_col; i += N_intra) {
 		for (j = 0; j < org_row; j += N_intra) {
 			neighbor_pix = neighbor_pixels(res_img, j, i, 0);
@@ -402,7 +402,7 @@ unsigned char* decoding_intra(unsigned char* Label_arr, int* Error) {
 			}
 		}
 	}
-	//¿¹Ãø ¿µ»ó Ã£±â
+	//ì˜ˆì¸¡ ì˜ìƒ ì°¾ê¸°
 	return(res_img);
 	free(res_img);
 	free(neighbor_pix);

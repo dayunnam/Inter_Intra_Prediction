@@ -8,7 +8,7 @@ inter_intra_decoder
 
 
 
-//(¹ÌÈ®ÀÎ)main ÇÔ¼ö
+//(ë¯¸í™•ì¸)main í•¨ìˆ˜
 int main(void) {
 	unsigned char* before_renconstruct_img = NULL;
 	unsigned char* current_renconstruct_img = NULL;
@@ -17,9 +17,9 @@ int main(void) {
 
 	unsigned char*flag_MB = NULL;
 	
-	unsigned char* Label_arr = NULL;//before ¿µ»ó label
+	unsigned char* Label_arr = NULL;//before ì˜ìƒ label
 	unsigned char*label_arr_after = NULL;
-	int* Error = NULL; // before ¿µ»ó differencr
+	int* Error = NULL; // before ì˜ìƒ differencr
 
 
 	int * mv_x = NULL;
@@ -50,7 +50,7 @@ int main(void) {
 	Error = ReadFile_int(error_file, org_row, org_col);
 	sort_Label(Label_arr); 
 
-	before_renconstruct_img = decoding_intra(Label_arr, Error); // decoding : error ¿Í label À» ¹Ş¾Æ º¹±¸ ¿µ»ó Ãâ·Â
+	before_renconstruct_img = decoding_intra(Label_arr, Error); // decoding : error ì™€ label ì„ ë°›ì•„ ë³µêµ¬ ì˜ìƒ ì¶œë ¥
 	after1 = clock();
 
 	before2 = clock();
@@ -69,8 +69,8 @@ int main(void) {
 	Time1 = (double)(after1 - before1);
 	Time2 = (double)(after2 - before2);
 	total_time = (double)(after - before);
-	WriteFile_U(before_renconstruct_img, reconstruct_file_bf_decoder, org_row, org_col); //º¹¿ø ¿µ»ó Ãâ·Â
-	WriteFile_U(current_renconstruct_img, current_decoding_file, org_row, org_col); //º¹¿ø ¿µ»ó Ãâ·Â
+	WriteFile_U(before_renconstruct_img, reconstruct_file_bf_decoder, org_row, org_col); //ë³µì› ì˜ìƒ ì¶œë ¥
+	WriteFile_U(current_renconstruct_img, current_decoding_file, org_row, org_col); //ë³µì› ì˜ìƒ ì¶œë ¥
 
 																  
 	encoding_img = readFile(reconstruct_file_bf_encoder, org_row, org_col);
@@ -79,7 +79,7 @@ int main(void) {
 
 	if (use_psnr == 1) {
 	printf("===========before image intra prediction===========");
-	MSE_f(before_renconstruct_img, in_file_bf); // PSNR, MSE °è»ê, in_file°ú ºñ±³
+	MSE_f(before_renconstruct_img, in_file_bf); // PSNR, MSE ê³„ì‚°, in_fileê³¼ ë¹„êµ
 	printf("===========after image temporal prediction===========");
 	MSE_f(current_renconstruct_img, in_file_af);
 	}
@@ -87,20 +87,20 @@ int main(void) {
 	printf("===========before image intra prediction===========");
 	mismatch = ismismatch(encoding_img, decoding_img);
 	if (mismatch == FALSE) {
-	printf("\nmismatch ¾øÀ½\n");
+	printf("\nmismatch ì—†ìŒ\n");
 	}
 	else
-	printf("\nmismatch ¹ß»ı\n");
+	printf("\nmismatch ë°œìƒ\n");
 	printf("===========after image temporal prediction===========");
 
 	encoding_img = readFile(current_encoding_file, org_row, org_col);
 	decoding_img = readFile(current_decoding_file, org_row, org_col);
 	mismatch = ismismatch(encoding_img, decoding_img);
 	if (mismatch == FALSE) {
-		printf("\nmismatch ¾øÀ½\n");
+		printf("\nmismatch ì—†ìŒ\n");
 	}
 	else
-		printf("\nmismatch ¹ß»ı\n");
+		printf("\nmismatch ë°œìƒ\n");
 
 																  
 
